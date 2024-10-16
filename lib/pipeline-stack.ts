@@ -25,23 +25,15 @@ export class PipelineStack extends cdk.Stack {
         effect: Effect.ALLOW,
         actions: [
           's3:GetObject',
-          's3:GetObjectVersion',
-          's3:GetBucketVersioning',
           's3:PutObject',
-          'secretsmanager:GetSecretValue',
-          'pipeline:StartPipelineExecution',
-          'sts:AssumeRole',	
+          'secretsmanager:GetSecretValue'
         ],
         resources: ['*'],
       })
     )
-
-    console.log(SecretValue.secretsManager('github-token',{
-      jsonField: 'github-token'})
-    )
     // Create a new code pipeline
     const pipeline = new CodePipeline(this, 'Pipeline', {
-      role: roleCodePipelineCdk,
+      // role: roleCodePipelineCdk,
       // Name of the pipeline
       pipelineName: 'MyPipeline',
       // Synthesize the CDK code in the pipeline
